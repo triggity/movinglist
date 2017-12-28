@@ -1,10 +1,8 @@
-
 import * as yargs from 'yargs';
 import * as server from './server';
-import logger from './util/logger';
 
 
-let a = yargs
+yargs
     .command('server', 'start the server', serverOpts, serverFunc)
     .help()
     .argv;
@@ -26,7 +24,6 @@ function serverFunc(args) {
     server.start(opts);
 
 }
-
 
 function _getEnv(envVar: string, defaulter?: any): string {
     return process.env[envVar] || '' + defaulter || '';
