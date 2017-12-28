@@ -4,17 +4,20 @@ import * as koaRouter from 'koa-router';
 import ItemsHandler from './handlers/itemsHandler';
 import { ItemDao } from './models';
 import logger from './util/logger';
+import { Pool } from 'pg';
 
 export interface ServerOpts {
     port: number;
     environment?: string;
+    pool: Pool;
 }
 
 export function start(opts: ServerOpts) {
     const app = new koa();
     const router = new koaRouter();
 
-    const itemDao = new ItemDao();
+
+    const itemDao = new ItemDao(opts.pool);
     const itemsHandler = new ItemsHandler(itemDao);
 
     router.get('/', async (ctx: koa.Context) => {

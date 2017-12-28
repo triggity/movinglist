@@ -12,8 +12,8 @@ const items: Item[] = [
 export default class ItemDao {
     pool: Pool;
 
-    constructor() {
-        // this.pool = pool;
+    constructor(pool: Pool) {
+        this.pool = pool;
     }
 
     list(): Promise<Item[]> {
