@@ -1,5 +1,7 @@
 import * as koa from 'koa';
+import * as koaStatic from 'koa-static';
 import * as koaRouter from 'koa-router';
+import * as koaLogger from 'koa-logger';
 
 import ItemsHandler from './handlers/itemsHandler';
 import ItemMemoryDao from './models/itemMemoryDao';
@@ -25,8 +27,10 @@ export function start(opts: ServerOpts) {
         ctx.body = {"hi": "hello world"};
     });
 
+    app.use(koaLogger());
     router.get('/v1/items', itemsHandler.list)
 
+    app.use(koaStatic('.', { index: 'dist/index.html' }));
     app.use(router.routes());
     app.use(router.allowedMethods());
 

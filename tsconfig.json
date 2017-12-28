@@ -4,7 +4,8 @@
     "outDir": "dist",
     "module": "commonjs",
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "jsx": "react"
   },
   "include": [
     "src/**/*"
