@@ -6,7 +6,7 @@ import { RootState } from '../reducers/index';
 const mapStateToProps = (state: RootState) => {
     return {
         columns: state.columns,
-        data: state.items
+        data: state.items.items
     };
 }
 

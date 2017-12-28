@@ -1,18 +1,20 @@
 import * as koa from 'koa';
 
 import ItemMemoryDao  from '../models/itemMemoryDao';
+import Item from '../models/item';
 import logger from '../util/logger';
 
 
 
-export default class ItemsHandler {
+export class ItemsHandler {
     dao: ItemMemoryDao;
     constructor(dao: ItemMemoryDao) {
         this.dao = dao;
     }
     list = async (ctx: koa.Context) => {
         try {
-            ctx.body = await this.dao.list();
+            const data = await this.dao.list();
+            ctx.body = { data: data };
         } catch (e ) {
             logger.error('error while retrieving maps', e);
             ctx.response.status = 400;
@@ -20,3 +22,9 @@ export default class ItemsHandler {
         }
     }
 }
+
+export interface ListItemsResponse {
+    data: Item[];
+}
+
+export default ItemsHandler;
