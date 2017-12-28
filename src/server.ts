@@ -2,6 +2,7 @@ import * as koa from 'koa';
 import * as koaRouter from 'koa-router';
 
 import ItemsHandler from './handlers/itemsHandler';
+import { ItemDao } from './models';
 import logger from './util/logger';
 
 export interface ServerOpts {
@@ -13,7 +14,8 @@ export function start(opts: ServerOpts) {
     const app = new koa();
     const router = new koaRouter();
 
-    const itemsHandler = new ItemsHandler();
+    const itemDao = new ItemDao();
+    const itemsHandler = new ItemsHandler(itemDao);
 
     router.get('/', async (ctx: koa.Context) => {
         ctx.header

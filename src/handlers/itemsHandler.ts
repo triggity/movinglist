@@ -1,23 +1,18 @@
 import * as koa from 'koa';
 
-import Action from '../models/action';
-import Item from '../models/Item';
+import { ItemDao } from '../models';
 import logger from '../util/logger';
 
 
-const items: Item[] = [
-    {
-        name: 'item1',
-        status: true,
-        action: Action.keep
-    }
-]
-
 
 export default class ItemsHandler {
+    dao: ItemDao;
+    constructor(dao: ItemDao) {
+        this.dao = dao;
+    }
     list = async (ctx: koa.Context) => {
         try {
-            ctx.body = items;
+            ctx.body = await this.dao.list();
         } catch (e ) {
             logger.error('error while retrieving maps', e);
             ctx.response.status = 400;

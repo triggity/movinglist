@@ -6,6 +6,7 @@
   "dependencies": {
     "@types/koa": "^2.0.43",
     "@types/koa-router": "^7.0.27",
+    "@types/pg": "^7.4.1",
     "@types/winston": "^2.3.7",
     "@types/yargs": "^10.0.0",
     "babel": "^6.23.0",
