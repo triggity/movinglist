@@ -1,22 +1,26 @@
 import { Pool } from 'pg';
 import Item from './item';
-import Action from './action';
 
-const items: Item[] = [
-    {
-        name: 'item1',
-        status: true,
-        action: Action.keep
-    }
-]
+// const items: Item[] = [
+//     {
+//         name: 'item1',
+//         status: true,
+//         action: Action.keep
+//     }
+// ]
 export default class ItemDao {
     pool: Pool;
+    tableName: String = 'items';
 
     constructor(pool: Pool) {
         this.pool = pool;
     }
 
-    list(): Promise<Item[]> {
-        return Promise.resolve(items);
+    async list(): Promise<Item[]> {
+        const client = await this.pool.connect();
+        const result  = await client.query(`SELECT * FROM ${this.tableName}`);
+        client.release();
+        const items: Item[] = result.rows;
+        return items;
     }
 }
