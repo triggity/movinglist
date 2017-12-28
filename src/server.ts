@@ -22,17 +22,13 @@ export function start(opts: ServerOpts) {
     const itemDao = new ItemMemoryDao();
     const itemsHandler = new ItemsHandler(itemDao);
 
-    router.get('/', async (ctx: koa.Context) => {
-        ctx.header
-        ctx.body = {"hi": "hello world"};
-    });
-
     app.use(koaLogger());
     router.get('/v1/items', itemsHandler.list)
 
     app.use(koaStatic('.', { index: 'dist/index.html' }));
     app.use(router.routes());
     app.use(router.allowedMethods());
+
 
     app.listen(opts.port, () => {
         logger.info(`example starting at ${opts.port}`);
