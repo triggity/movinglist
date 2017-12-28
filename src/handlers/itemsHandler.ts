@@ -1,13 +1,13 @@
 import * as koa from 'koa';
 
-import { ItemDao } from '../models';
+import ItemMemoryDao  from '../models/itemMemoryDao';
 import logger from '../util/logger';
 
 
 
 export default class ItemsHandler {
-    dao: ItemDao;
-    constructor(dao: ItemDao) {
+    dao: ItemMemoryDao;
+    constructor(dao: ItemMemoryDao) {
         this.dao = dao;
     }
     list = async (ctx: koa.Context) => {

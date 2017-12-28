@@ -2,7 +2,7 @@ import * as koa from 'koa';
 import * as koaRouter from 'koa-router';
 
 import ItemsHandler from './handlers/itemsHandler';
-import { ItemDao } from './models';
+import ItemMemoryDao from './models/itemMemoryDao';
 import logger from './util/logger';
 import { Pool } from 'pg';
 
@@ -17,7 +17,7 @@ export function start(opts: ServerOpts) {
     const router = new koaRouter();
 
 
-    const itemDao = new ItemDao(opts.pool);
+    const itemDao = new ItemMemoryDao();
     const itemsHandler = new ItemsHandler(itemDao);
 
     router.get('/', async (ctx: koa.Context) => {
